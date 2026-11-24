@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>TP Geografía – Grupo 3: producción de alimentos en la Pampa</title>
+<link rel="stylesheet" href="css/estilos.css">
+<!-- Librerías desde internet (hace falta conexión) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head><body><div id="bg"></div><div class="orb o1" data-s=".12"></div><div class="orb o2" data-s=".2"></div><div class="orb o3" data-s=".3"></div><main>
+<div class="hero" id="hero"><svg viewBox="0 0 800 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8ec1e0"/><stop offset=".5" stop-color="#f7e0a8"/><stop offset="1" stop-color="#fbd9a0"/></linearGradient></defs><rect width="800" height="210" fill="url(#sk)"/><path d="M0 150Q200 128 400 142T800 134V210H0Z" fill="#b5a24a"/><path d="M0 182Q240 160 440 174T800 168V210H0Z" fill="#7f9a37"/></svg><canvas id="three"></canvas><div class="t"><span class="chip">Región pampeana · Argentina</span><h1>Producción de alimentos y conflictos por los recursos</h1><p class="intro">Geografía, Núcleo 6 – Grupo 3. Una mirada a la región pampeana argentina.</p></div></div>
+<div class="tools"><button id="fx"></button></div>
+<section class="card tilt" id="pres"><h2 contenteditable="true">Presentación del trabajo</h2>
+<p class="mut">Espacio para la presentación del grupo: hacé clic en el texto para editarlo y subí una imagen si querés.</p>
+<div class="pgrid"><div class="note" contenteditable="true"><b>Tema:</b> Conflictos por la apropiación de recursos – Producción de alimentos.<br><b>Región elegida:</b> región pampeana de la Argentina.<br><b>Grupo 3 · Núcleo 6</b> · Presentación: 1 de diciembre.<br><b>Integrantes:</b> Mateo Sosa, Juan Rodriguez, Ramiro Mercado y Bautista Pereda.<br><br>Escribí acá la introducción y las conclusiones del grupo.</div>
+<div class="pbox" id="pb" hidden><img id="pv" src="" alt="Imagen de la presentación"></div></div></section>
+<section class="card tilt" id="canva" hidden><div id="sl" hidden><img id="sim" alt="Diapositiva"><div class="bar"><button id="sp">←</button><span id="sn" class="mut"></span><button id="sx">→</button><button id="sf">⛶ Pantalla completa</button></div></div></section>
+<div class="nav"><button class="tilt" data-g="1B">🌾 Gráfico 1B<small>Dos conflictos por el suelo en la Pampa</small></button><button class="tilt" data-g="2C">🛒 Gráfico 2C<small>Precios, ingresos y acceso a los alimentos</small></button></div>
+<p class="hint">Tocá un botón para mostrar u ocultar el gráfico.</p>
+<div id="g1B" hidden></div><div id="g2C" hidden></div></main>
+<script src="js/config.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/main.js"></script>
+</body></html>
