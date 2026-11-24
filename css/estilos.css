@@ -37,6 +37,7 @@
     color-scheme: dark;
 }
 html {
+    font-size: 20px;
     scroll-padding-top: env(safe-area-inset-top, 0px);
 }
 body {
@@ -50,7 +51,7 @@ body {
         sans-serif;
 }
 main {
-    max-width: 880px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 14px 40px;
 }
