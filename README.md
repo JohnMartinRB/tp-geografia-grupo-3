@@ -28,7 +28,7 @@ Los nombres tienen que ser exactamente estos (en minúsculas). Si un archivo no 
 
 ## Cómo abrirlo en Visual Studio Code
 
-1. *Archivo → Abrir carpeta…* y elegí `tp-geografia-grupo-3`.
+1. _Archivo → Abrir carpeta…_ y elegí `tp-geografia-grupo-3`.
 2. Instalá la extensión **Live Server** (Ritwick Dey).
 3. Clic derecho sobre `index.html` → **Open with Live Server**.
 
