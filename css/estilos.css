@@ -37,7 +37,7 @@
     color-scheme: dark;
 }
 html {
-    font-size: 20px;
+    font-size: 26px;
     scroll-padding-top: env(safe-area-inset-top, 0px);
 }
 body {
