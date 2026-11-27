@@ -1,7 +1,6 @@
 window.FX = !matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.body.classList.toggle("fx", FX);
 
-// Inicializar iconos de Lucide
 if (window.lucide) {
     lucide.createIcons();
 }
@@ -23,44 +22,41 @@ function el(t, p, h) {
 }
 
 // ==========================================
-// 1. CONFIGURACIÓN VERTICAL DE DIAPOSITIVAS + BOTÓN IMPRIMIR
+// 1. NAVEGACIÓN A HOJAS A4 + BOTÓN IMPRIMIR
 // ==========================================
 const slides = [...document.querySelectorAll(".slide")];
 const slideIndex = document.getElementById("slideIndex");
 const indexGrid = document.getElementById("indexGrid");
 const topActions = document.querySelector(".top-actions");
 
-// Agregar botón directo de Imprimir en la barra superior
 if (topActions) {
     const printBtn = el("button", {
         className: "pill-btn print-btn",
-        title: "Imprimir o guardar todas las diapositivas en PDF",
-        innerHTML: `<i data-lucide="printer"></i> Imprimir / PDF`,
+        title: "Imprimir o guardar todas las hojas A4 en PDF",
+        innerHTML: `<i data-lucide="printer"></i> Imprimir A4 / PDF`,
     });
     printBtn.onclick = () => window.print();
     topActions.prepend(printBtn);
     if (window.lucide) lucide.createIcons();
 }
 
-// Numerar cada diapositiva y hacerlas todas visibles una debajo de la otra
 slides.forEach((s, idx) => {
     s.classList.add("active");
     s.id = `slide-${idx + 1}`;
     const badge = el("span", {
         className: "slide-badge-num",
-        textContent: `Diapositiva ${idx + 1} / ${slides.length}`,
+        textContent: `Hoja A4 ${idx + 1} / ${slides.length}`,
     });
     s.prepend(badge);
 });
 
-// Índice rápido con desplazamiento suave (scroll) hacia cada diapositiva
 function buildIndex() {
     if (!indexGrid) return;
     indexGrid.innerHTML = "";
     slides.forEach((s, idx) => {
         const btn = el("button", {
             className: "index-item",
-            textContent: `${idx + 1}. ${s.dataset.title || "Diapositiva " + (idx + 1)}`,
+            textContent: `Hoja ${idx + 1}: ${s.dataset.title || ""}`,
         });
         btn.onclick = () => {
             s.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -105,7 +101,6 @@ CHARTS.forEach((c) => {
     mk(c);
 });
 
-// Redimensionar todos los gráficos antes de imprimir para que salgan nítidos
 window.addEventListener("beforeprint", () => {
     CHARTS.forEach((c) => {
         if (c.ch) {
@@ -141,7 +136,7 @@ function mk(c) {
         draw(c);
     };
 
-    const png = el("button", {}, "Descargar PNG");
+    const png = el("button", {}, "PNG");
     png.onclick = () => {
         el("a", { href: c.cv.toDataURL("image/png"), download: c.id + ".png" }).click();
     };
@@ -245,7 +240,7 @@ function draw(c) {
 }
 
 // ==========================================
-// 3. IMAGEN OPCIONAL DE MAQUETA + TRIGO 3D
+// 3. IMAGEN OPCIONAL + TRIGO 3D
 // ==========================================
 (() => {
     const pb = document.getElementById("pb");
@@ -332,7 +327,7 @@ function draw(c) {
         gp.setZ(i, y * y * 0.12);
     }
 
-    const N = innerWidth < 700 ? 7000 : 14000,
+    const N = 9000,
         st = new THREE.InstancedMesh(g, stalkM, N),
         ea = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 6, 5), earM, N),
         o = new THREE.Object3D();
@@ -367,12 +362,11 @@ function draw(c) {
     gr.position.set(0, -0.01, -30);
     S.add(gr);
 
-    const mouse = { x: 0, y: 0 };
     let raf = 0,
         vis = true;
     const size = () => {
         const w = hero.clientWidth || 800,
-            h = hero.clientHeight || 280;
+            h = hero.clientHeight || 175;
         R.setSize(w, h, false);
         C.aspect = w / h;
         C.updateProjectionMatrix();
@@ -382,18 +376,12 @@ function draw(c) {
         size();
         frame(performance.now());
     });
-    hero.addEventListener("pointermove", (e) => {
-        const r = hero.getBoundingClientRect();
-        mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
-        mouse.y = -(((e.clientY - r.top) / r.height) * 2 - 1);
-    });
 
     function frame(ms) {
         const t = ms / 1000;
         U.t.value = t;
-        U.m.value.set(mouse.x, mouse.y);
-        C.position.set(mouse.x * 0.6, 1.05 + mouse.y * 0.2, 5);
-        C.lookAt(mouse.x * 0.4, 0.55, -8);
+        C.position.set(0, 1.05, 5);
+        C.lookAt(0, 0.55, -8);
         R.render(S, C);
         if (FX && vis) raf = requestAnimationFrame(frame);
     }
