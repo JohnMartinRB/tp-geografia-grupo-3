@@ -3,51 +3,45 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <title>TP Geografía – Grupo 3: Producción de alimentos en la Región Pampeana</title>
+        <title>TP Geografía – Grupo 3: Producción de alimentos en la Región Pampeana (A4)</title>
         <link rel="stylesheet" href="css/estilos.css" />
-        <!-- Iconos Lucide + Librerías Chart.js y Three.js -->
         <script src="https://unpkg.com/lucide@latest"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     </head>
     <body>
         <div id="bg"></div>
-        <div class="orb o1" data-s=".12"></div>
-        <div class="orb o2" data-s=".2"></div>
-        <div class="orb o3" data-s=".3"></div>
+        <div class="orb o1"></div>
+        <div class="orb o2"></div>
+        <div class="orb o3"></div>
 
-        <!-- Barra superior fija de control y progreso -->
+        <!-- Barra superior fija -->
         <header class="topbar">
             <div class="brand">
                 <i data-lucide="wheat"></i>
-                <span>Geografía · Núcleo 6 · <strong>Grupo 3</strong></span>
-            </div>
-            <div class="progress-wrap" title="Progreso de la presentación">
-                <div class="progress-bar" id="progressBar"></div>
+                <span>Geografía · Núcleo 6 · <strong>Grupo 3</strong> (Formato A4 Horizontal)</span>
             </div>
             <div class="top-actions">
-                <button id="fx" class="pill-btn" title="Activar/Desactivar animaciones"></button>
-                <button id="toggleGrid" class="pill-btn" title="Ver índice de diapositivas">
-                    <i data-lucide="layout-grid"></i> Índice
-                </button>
+                <button id="fx" class="pill-btn"></button>
+                <button id="toggleGrid" class="pill-btn"><i data-lucide="layout-grid"></i> Ir a hoja</button>
                 <button id="btnFullscreen" class="pill-btn" title="Pantalla completa">
                     <i data-lucide="maximize-2"></i>
                 </button>
             </div>
         </header>
 
-        <!-- Menú desplegable de índice rápido -->
+        <!-- Índice rápido -->
         <nav class="slide-index" id="slideIndex" hidden>
             <div class="index-header">
-                <h3>Navegación rápida de diapositivas</h3>
+                <h3>Hojas A4 de la presentación</h3>
                 <button id="closeIndex" class="icon-btn"><i data-lucide="x"></i></button>
             </div>
             <div class="index-grid" id="indexGrid"></div>
         </nav>
 
-        <!-- Contenedor principal de diapositivas -->
+        <!-- Todas las diapositivas en formato A4 apaisado una debajo de la otra -->
         <main class="deck" id="deck">
-            <!-- DIAPOSITIVA 1: PORTADA CON TRIGO 3D -->
+            <!-- HOJA 1: PORTADA Y PRESENTACIÓN -->
             <section class="slide active" data-title="Portada y Presentación">
                 <div class="hero" id="hero">
                     <svg viewBox="0 0 800 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -67,14 +61,14 @@
                         <span class="chip">Trabajo Práctico Evaluativo · 1 de Diciembre</span>
                         <h1>Conflictos por la apropiación de recursos y producción de alimentos</h1>
                         <p class="intro">
-                            Un análisis geográfico, ambiental y socioeconómico de la
+                            Análisis geográfico, ambiental y socioeconómico de la
                             <strong>Región Pampeana Argentina</strong>.
                         </p>
                     </div>
                 </div>
 
-                <div class="grid-2 mt-1">
-                    <div class="card tilt">
+                <div class="grid-2">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="users" class="ic-gold"></i>
                             <h2>Integrantes del Grupo 3</h2>
@@ -86,183 +80,173 @@
                             <div class="member-pill"><i data-lucide="user-check"></i> Bautista Pereda</div>
                         </div>
                         <div class="note mt-1" contenteditable="true">
-                            <b>Eje del trabajo:</b> Analizamos cómo la Región Pampeana concentra la mayor capacidad
-                            agroexportadora del país, pero enfrenta tensiones entre el uso intensivo del suelo, la
-                            conservación ambiental y el acceso real de la población a una alimentación adecuada.
+                            <b>Síntesis inicial:</b> La Región Pampeana concentra la mayor capacidad agroalimentaria del
+                            país, pero su explotación intensiva plantea tensiones por el suelo, el agua y la
+                            biodiversidad, mientras que una parte creciente de la población enfrenta inseguridad
+                            alimentaria.
                         </div>
                     </div>
 
-                    <div class="card tilt">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="compass" class="ic-green"></i>
-                            <h2>Estructura de la Exposición</h2>
+                            <h2>Recorrido de las 12 Hojas A4</h2>
                         </div>
                         <ul class="clean-list">
                             <li>
-                                <span class="badge">Bloque 1</span> <b>Recursos y decisiones productivas:</b> Región
-                                Pampeana (1A), conflictos por el suelo (1B) y modelo sostenible en maqueta (1C).
+                                <span class="badge">Hojas 2–5</span> <b>1. Recursos y decisiones productivas:</b> Región
+                                Pampeana y mapa (1A), gráficos y análisis de conflictos (1B) y maqueta de producción
+                                sostenible (1C).
                             </li>
                             <li>
-                                <span class="badge">Bloque 2</span> <b>Alimentación y desigualdad:</b> Paradoja
-                                hambre-exportación (2A), actores sociales e internacionales (2B), precios y salarios
-                                (2C) y propuestas (2D).
+                                <span class="badge">Hojas 6–10</span> <b>2. Alimentación y desigualdad:</b> Paradoja
+                                hambre-exportación y maqueta de contraste (2A), actores sociales e internacionales (2B),
+                                gráficos de precios, salarios y distribución (2C) y flyer con 3 medidas (2D).
                             </li>
                             <li>
-                                <span class="badge">Fuentes</span> Datos oficiales de
-                                <b>FAO, MapBiomas Argentina, INTA y Secretaría de Agricultura</b>.
+                                <span class="badge">Hojas 11–12</span> <b>Fuentes, códigos QR y conclusiones:</b> FAO,
+                                MapBiomas Argentina, INTA y Secretaría de Agricultura.
                             </li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 2: ACTIVIDAD 1A - LA REGIÓN PAMPEANA Y SUS RECURSOS -->
+            <!-- HOJA 2: ACTIVIDAD 1A - LA REGIÓN PAMPEANA Y SUS RECURSOS -->
             <section class="slide" data-title="1A · Región Pampeana y Recursos">
                 <div class="slide-header">
                     <span class="chip">Actividad 1A · Mapa y Recursos Naturales</span>
-                    <h2>La Región Pampeana: el corazón agroalimentario argentino</h2>
+                    <h2>La Región Pampeana: condiciones físico-naturales para producir alimentos</h2>
                     <p class="mut">
-                        Características físico-naturales que explican su altísima productividad agrícola y ganadera.
+                        Características del suelo, el agua y el clima que favorecen la agricultura y la ganadería.
                     </p>
                 </div>
 
                 <div class="grid-3-asym">
                     <div class="floating-cards-col">
-                        <div class="float-card tilt">
+                        <div class="float-card">
                             <div class="fc-icon bg-amber"><i data-lucide="layers"></i></div>
                             <div>
-                                <h3>Suelos Molisoles</h3>
+                                <h3>Suelos (Molisoles)</h3>
                                 <p>
-                                    Suelos profundos, oscuros y ricos en materia orgánica y nutrientes, formados sobre
-                                    sedimentos loéssicos. Ideales para cultivos extensivos sin requerir fertilización
-                                    extrema inicial.
+                                    Suelos profundos, llanos o suavemente ondulados, oscuros y ricos en humus y
+                                    nutrientes sobre sedimentos loéssicos. Presentan alta fertilidad natural para granos
+                                    y pasturas.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="float-card tilt">
+                        <div class="float-card">
                             <div class="fc-icon bg-blue"><i data-lucide="droplets"></i></div>
                             <div>
-                                <h3>Disponibilidad de Agua</h3>
+                                <h3>Agua (Precipitaciones, Ríos y Acuíferos)</h3>
                                 <p>
-                                    Precipitaciones suficientes (600 a 1.100 mm anuales), red fluvial de la Cuenca del
-                                    Plata (ríos Paraná, Uruguay y Salado) y acuíferos subterráneos accesibles mediante
-                                    molinos y bombeo.
+                                    Precipitaciones moderadas a abundantes (600–1.100 mm/año), cercanía a la red hídrica
+                                    de la Cuenca del Plata (Paraná, Uruguay, Salado) y agua subterránea extraída
+                                    mediante molinos y bombeo.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="float-card tilt">
+                        <div class="float-card">
                             <div class="fc-icon bg-green"><i data-lucide="sun"></i></div>
                             <div>
                                 <h3>Clima Templado</h3>
                                 <p>
-                                    Temperaturas moderadas con estaciones bien definidas y lluvias concentradas en
-                                    primavera-verano, permitiendo realizar doble cultivo anual (ej. trigo seguido de
-                                    soja de segunda).
+                                    Temperaturas suaves sin extremos térmicos severos y lluvias favorables en primavera
+                                    y verano, permitiendo ciclos agrícolas extensivos de trigo, maíz, soja, girasol,
+                                    leche y carne.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Representación visual / Mapa esquemático de la Región Pampeana -->
-                    <div class="card map-card tilt">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="map-pin" class="ic-gold"></i>
-                            <h3>Mapa Territorial: Provincias Pampeanas</h3>
+                            <h3>Mapa Esquema: Provincias Pampeanas</h3>
                         </div>
-                        <div class="map-visual">
-                            <svg viewBox="0 0 360 320" class="pampa-svg">
-                                <!-- Silueta estilizada de la llanura pampeana y ríos -->
-                                <rect width="360" height="320" rx="14" fill="#e8f1f5" />
-                                <!-- Océano Atlántico -->
-                                <path d="M250,180 Q290,220 270,320 L360,320 L360,150 Z" fill="#b4d8e7" />
-                                <text x="295" y="265" font-size="10" fill="#3a6b82" font-weight="bold">
-                                    Mar Argentino
-                                </text>
-                                <!-- Área Región Pampeana -->
-                                <path
-                                    d="M90,70 L210,65 L245,130 L265,195 L210,275 L115,270 L85,185 Z"
-                                    fill="#c7d88a"
-                                    stroke="#6f8a2f"
-                                    stroke-width="3"
-                                />
-                                <!-- Río Paraná / de la Plata -->
-                                <path
-                                    d="M210,45 Q225,110 245,155 Q275,180 300,190"
-                                    fill="none"
-                                    stroke="#4f86a8"
-                                    stroke-width="5"
-                                    stroke-linecap="round"
-                                />
-                                <text x="235" y="115" font-size="9" fill="#2c5875" font-weight="bold">Río Paraná</text>
-                                <!-- Etiquetas Provinciales -->
-                                <circle cx="125" cy="110" r="5" fill="#c8962b" />
-                                <text x="100" y="100" font-size="11" font-weight="bold" fill="#2d2a18">CÓRDOBA</text>
-                                <circle cx="185" cy="115" r="5" fill="#c8962b" />
-                                <text x="165" y="132" font-size="11" font-weight="bold" fill="#2d2a18">SANTA FE</text>
-                                <circle cx="222" cy="125" r="5" fill="#c8962b" />
-                                <text x="215" y="142" font-size="10" font-weight="bold" fill="#2d2a18">ENTRE RÍOS</text>
-                                <circle cx="115" cy="215" r="5" fill="#c8962b" />
-                                <text x="88" y="233" font-size="11" font-weight="bold" fill="#2d2a18">LA PAMPA</text>
-                                <circle cx="195" cy="210" r="6" fill="#8a5a2b" />
-                                <text x="162" y="198" font-size="12" font-weight="bold" fill="#2d2a18">
-                                    BUENOS AIRES
-                                </text>
-                            </svg>
-                            <div class="map-legend">
-                                <span><i style="background: #c7d88a"></i> Llanura Pampeana (5 provincias)</span>
-                                <span><i style="background: #4f86a8"></i> Sistema hídrico Cuenca del Plata</span>
-                            </div>
+                        <svg viewBox="0 0 360 220" class="pampa-svg">
+                            <rect width="360" height="220" rx="10" fill="#e8f1f5" />
+                            <path d="M250,120 Q290,150 270,220 L360,220 L360,95 Z" fill="#b4d8e7" />
+                            <text x="292" y="185" font-size="10" fill="#3a6b82" font-weight="bold">Mar Argentino</text>
+                            <path
+                                d="M85,35 L210,30 L245,85 L265,135 L210,195 L110,190 L80,120 Z"
+                                fill="#c7d88a"
+                                stroke="#6f8a2f"
+                                stroke-width="2.5"
+                            />
+                            <path
+                                d="M210,15 Q225,70 245,105 Q275,125 300,132"
+                                fill="none"
+                                stroke="#4f86a8"
+                                stroke-width="4"
+                                stroke-linecap="round"
+                            />
+                            <text x="235" y="75" font-size="9" fill="#2c5875" font-weight="bold">Río Paraná</text>
+                            <circle cx="125" cy="70" r="4" fill="#c8962b" />
+                            <text x="96" y="62" font-size="10" font-weight="bold" fill="#2d2a18">CÓRDOBA</text>
+                            <circle cx="185" cy="75" r="4" fill="#c8962b" />
+                            <text x="165" y="90" font-size="10" font-weight="bold" fill="#2d2a18">SANTA FE</text>
+                            <circle cx="222" cy="82" r="4" fill="#c8962b" />
+                            <text x="215" y="98" font-size="9" font-weight="bold" fill="#2d2a18">ENTRE RÍOS</text>
+                            <circle cx="115" cy="150" r="4" fill="#c8962b" />
+                            <text x="86" y="166" font-size="10" font-weight="bold" fill="#2d2a18">LA PAMPA</text>
+                            <circle cx="195" cy="145" r="5" fill="#8a5a2b" />
+                            <text x="158" y="135" font-size="11" font-weight="bold" fill="#2d2a18">BUENOS AIRES</text>
+                        </svg>
+                        <div class="map-legend">
+                            <span><i style="background: #c7d88a"></i> Región Pampeana (5 provincias)</span>
+                            <span><i style="background: #4f86a8"></i> Ríos y drenaje</span>
                         </div>
                         <div class="stats-row">
-                            <div class="stat-pill"><strong>5</strong> Provincias</div>
-                            <div class="stat-pill"><strong>+14,6 M ha</strong> Soja 2024/25</div>
-                            <div class="stat-pill"><strong>Base</strong> Trigo, maíz, carne y leche</div>
+                            <div class="stat-pill"><strong>5 Provincias</strong> Bs.As., Cba., SF, ER, LP</div>
+                            <div class="stat-pill"><strong>14,6 M ha</strong> Soja 2024/25</div>
+                            <div class="stat-pill"><strong>Producción</strong> Granos, carne y lácteos</div>
                         </div>
                         <p class="src">Fuentes: Secretaría de Agricultura, Ganadería y Pesca de la Nación & INTA.</p>
                     </div>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 3: ACTIVIDAD 1B - GRÁFICOS INTERACTIVOS DE CONFLICTOS -->
+            <!-- HOJA 3: ACTIVIDAD 1B - GRÁFICOS DE CONFLICTOS POR EL SUELO -->
             <section class="slide" data-title="1B · Conflictos por el Suelo (Gráficos)">
                 <div class="slide-header">
                     <span class="chip">Actividad 1B · Competencia por los Recursos</span>
-                    <h2>Dos conflictos territoriales en la Región Pampeana</h2>
+                    <h2>Dos conflictos por el uso del suelo en la Región Pampeana</h2>
                     <p class="mut">
-                        Datos satelitales históricos (1985–2024) sobre el desplazamiento ganadero y la pérdida de
-                        ecosistemas nativos. Podés editar valores o cambiar el tipo de gráfico.
+                        Datos de monitoreo satelital (1985–2024) sobre la expansión agrícola, la ganadería y los
+                        pastizales nativos.
                     </p>
                 </div>
 
                 <div class="kpi-strip">
-                    <div class="kpi-box tilt">
+                    <div class="kpi-box">
                         <i data-lucide="trending-up"></i>
                         <div>
                             <span class="kpi-val">+5,8 M ha</span>
-                            <span class="kpi-lbl">Expansión agrícola (1985–2022)</span>
+                            <span class="kpi-lbl">Agricultura (1985–2022)</span>
                         </div>
                     </div>
-                    <div class="kpi-box tilt">
+                    <div class="kpi-box">
                         <i data-lucide="trending-down"></i>
                         <div>
                             <span class="kpi-val">-2,4 M ha</span>
-                            <span class="kpi-lbl">Retroceso de pasturas ganaderas</span>
+                            <span class="kpi-lbl">Pasturas ganaderas</span>
                         </div>
                     </div>
-                    <div class="kpi-box tilt">
+                    <div class="kpi-box">
                         <i data-lucide="alert-triangle"></i>
                         <div>
                             <span class="kpi-val">4,8 M ha</span>
-                            <span class="kpi-lbl">Vegetación nativa perdida en Arg.</span>
+                            <span class="kpi-lbl">Veg. nativa perdida (Arg.)</span>
                         </div>
                     </div>
-                    <div class="kpi-box tilt">
+                    <div class="kpi-box">
                         <i data-lucide="sprout"></i>
                         <div>
                             <span class="kpi-val">46 %</span>
-                            <span class="kpi-lbl">Superficie cultivada en 2024</span>
+                            <span class="kpi-lbl">Área cultivada en 2024</span>
                         </div>
                     </div>
                 </div>
@@ -270,172 +254,178 @@
                 <div id="g1B" class="charts-grid"></div>
             </section>
 
-            <!-- DIAPOSITIVA 4: ACTIVIDAD 1B (PROFUNDIZACIÓN) - IMPACTO AMBIENTAL Y AGROQUÍMICOS -->
+            <!-- HOJA 4: ACTIVIDAD 1B - IMPACTO AMBIENTAL Y AGROQUÍMICOS -->
             <section class="slide" data-title="1B · Impacto Ambiental y Monocultivo">
                 <div class="slide-header">
-                    <span class="chip">Actividad 1B · Análisis Crítico</span>
-                    <h2>¿Por qué chocan el modelo intensivo y el ambiente?</h2>
+                    <span class="chip">Actividad 1B · Dimensiones del Conflicto</span>
+                    <h2>Tensión entre producción intensiva y conservación ambiental</h2>
                     <p class="mut">
-                        Consecuencias de la "agriculturización" y el paquete tecnológico sobre el suelo, el agua y las
-                        comunidades.
+                        Cómo la competencia por el suelo, el agua y los ecosistemas genera disputas territoriales.
                     </p>
                 </div>
 
                 <div class="grid-3">
-                    <div class="card tilt">
+                    <div class="card">
+                        <div class="card-head">
+                            <i data-lucide="tractor" class="ic-gold"></i>
+                            <h3>1. Agricultura vs. Ganadería</h3>
+                        </div>
+                        <p>
+                            El avance de cultivos extensivos (como la soja) sobre tierras tradicionalmente ganaderas o
+                            forrajeras reduce la superficie destinada a pasturas implantadas (-2,4 millones de ha entre
+                            1985 y 2022) y obliga a reorganizar la cría de ganado.
+                        </p>
+                        <div class="tag-row">
+                            <span class="tag">Competencia por hectáreas</span>
+                            <span class="tag">Cambio en el uso del suelo</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="flask-conical" class="ic-rust"></i>
-                            <h3>1. Uso de Agroquímicos</h3>
+                            <h3>2. Producción vs. Ambiente y Salud</h3>
                         </div>
                         <p>
-                            El monocultivo extensivo depende de herbicidas y fertilizantes químicos. Su aplicación cerca
-                            de zonas urbanas ("pueblos fumigados") y cursos de agua genera conflictos socioambientales
-                            por contaminación hídrica y riesgos en la salud.
+                            El uso intensivo del suelo y de agroquímicos (herbicidas, fertilizantes) genera preocupación
+                            por la posible contaminación de cursos y napas de agua, la pérdida de fertilidad natural y
+                            los conflictos con comunidades cercanas a zonas fumigadas.
                         </p>
                         <div class="tag-row">
-                            <span class="tag">Deriva química</span>
-                            <span class="tag">Contaminación de napas</span>
+                            <span class="tag">Cuidado del agua y suelo</span>
+                            <span class="tag">Conflictos socioambientales</span>
                         </div>
                     </div>
 
-                    <div class="card tilt">
-                        <div class="card-head">
-                            <i data-lucide="layers-2" class="ic-gold"></i>
-                            <h3>2. Degradación del Suelo</h3>
-                        </div>
-                        <p>
-                            Cuando se abandona la rotación tradicional entre agricultura y ganadería, los suelos pierden
-                            materia orgánica, sufren compactación y aumentan su vulnerabilidad frente a inundaciones o
-                            sequías extremas.
-                        </p>
-                        <div class="tag-row">
-                            <span class="tag">Pérdida de nutrientes</span>
-                            <span class="tag">Erosión hídrica</span>
-                        </div>
-                    </div>
-
-                    <div class="card tilt">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="trees" class="ic-green"></i>
-                            <h3>3. Pérdida de Pastizales</h3>
+                            <h3>3. Pérdida de Pastizales y Biodiversidad</h3>
                         </div>
                         <p>
-                            Según <b>MapBiomas Argentina</b>, la conversión de pastizales naturales en cultivos redujo
-                            drásticamente los hábitats de fauna autóctona y desplazó la ganadería hacia zonas marginales
-                            o feedlots concentrados.
+                            La transformación de pastizales y vegetación nativa (11,3 millones de ha perdidas en la
+                            Pampa sudamericana entre 1985 y 2024, con 4,8 millones en Argentina según MapBiomas) reduce
+                            la biodiversidad y altera los servicios ecosistémicos de regulación hídrica.
                         </p>
                         <div class="tag-row">
-                            <span class="tag">11,3 M ha perdidas en Pampa</span>
-                            <span class="tag">Pérdida de biodiversidad</span>
+                            <span class="tag">MapBiomas Argentina</span>
+                            <span class="tag">Biodiversidad pampeana</span>
                         </div>
                     </div>
                 </div>
+
+                <div class="note mt-1">
+                    <b>Síntesis para el gráfico (1B):</b> La expansión agrícola transforma el paisaje pampeano y genera
+                    disputas tanto por el espacio productivo (cultivos vs. ganadería) como por el cuidado de los bienes
+                    comunes ambientales (suelo, agua y vegetación nativa).
+                </div>
             </section>
 
-            <!-- DIAPOSITIVA 5: ACTIVIDAD 1C - DECISIÓN PRODUCTIVA SOSTENIBLE Y MAQUETA -->
+            <!-- HOJA 5: ACTIVIDAD 1C - DECISIÓN PRODUCTIVA SOSTENIBLE Y MAQUETA -->
             <section class="slide" data-title="1C · Decisión Productiva y Maqueta">
                 <div class="slide-header">
-                    <span class="chip">Actividad 1C · Planificación y Maqueta Grupal</span>
-                    <h2>Nuestra decisión: Producción Mixta Agroecológica y Sostenible</h2>
+                    <span class="chip">Actividad 1C · Planificación y Maqueta</span>
+                    <h2>Decisión productiva: Modelo Agropecuario Mixto y Sostenible</h2>
                     <p class="mut">
-                        Integración equilibrada de agricultura rotativa, ganadería pastoril y conservación de recursos.
+                        Criterios económicos, sociales y ambientales para desarrollar en la Región Pampeana.
                     </p>
                 </div>
 
                 <div class="grid-2">
                     <div class="floating-cards-col">
-                        <div class="float-card tilt">
+                        <div class="float-card">
                             <div class="fc-icon bg-gold"><i data-lucide="coins"></i></div>
                             <div>
-                                <h3>Aspecto Económico</h3>
+                                <h3>Aspectos Económicos</h3>
                                 <p>
-                                    <b>Rentabilidad diversificada:</b> Combinar granos (trigo, maíz, soja) con ganadería
-                                    reduce el riesgo ante caídas de precios internacionales, genera empleo rural
-                                    permanente y agrega valor en origen.
+                                    Combinar agricultura (trigo, maíz, soja) y ganadería ofrece rentabilidad sostenida,
+                                    reduce riesgos ante variaciones climáticas o de precios, aprovecha la cercanía a
+                                    rutas/puertos y genera empleo rural.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="float-card tilt">
+                        <div class="float-card">
                             <div class="fc-icon bg-blue"><i data-lucide="heart-handshake"></i></div>
                             <div>
-                                <h3>Aspecto Social</h3>
+                                <h3>Aspectos Sociales</h3>
                                 <p>
-                                    <b>Arraigo y abastecimiento local:</b> Promueve el trabajo de familias productoras,
-                                    evita el despoblamiento rural y garantiza alimentos frescos (leche, carne, harinas)
-                                    para el mercado interno.
+                                    Fomenta el trabajo y arraigo de familias productoras, impulsa cadenas locales de
+                                    servicios y contribuye a abastecer el mercado interno con alimentos esenciales.
                                 </p>
                             </div>
                         </div>
 
-                        <div class="float-card tilt">
+                        <div class="float-card">
                             <div class="fc-icon bg-green"><i data-lucide="shield-check"></i></div>
                             <div>
-                                <h3>Aspecto Ambiental</h3>
+                                <h3>Aspectos Ambientales</h3>
                                 <p>
-                                    <b>Cuidado integral:</b> Rotación de cultivos para fijar nitrógeno natural, cortinas
-                                    forestales contra el viento, respeto de márgenes del río y monitoreo satelital con
-                                    <i>MapBiomas</i> e <i>INTA</i>.
+                                    Prioriza la rotación de cultivos, el cuidado de suelos y aguas (con molino, tanque
+                                    australiano y resguardo del cauce) y el mantenimiento de cortinas forestales y
+                                    vegetación nativa monitoreada por MapBiomas e INTA.
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Esquema visual interactivo de la Maqueta 1C -->
-                    <div class="card tilt">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="box" class="ic-green"></i>
-                            <h3>Diseño de nuestra Maqueta (Actividad 1C)</h3>
+                            <h3>Maqueta 1C: Campo Pampeano Sostenible</h3>
                         </div>
                         <div class="maqueta-board">
                             <div class="mq-zone mq-crop">
-                                <strong>🌾 Sector Agrícola Rotativo</strong>
-                                <span>Surcos alternados de maíz y trigo para evitar el desgaste del suelo.</span>
-                            </div>
-                            <div class="mq-zone mq-river">
-                                <strong>💧 Arroyo + Franja de Resguardo</strong>
-                                <span>Curso de agua libre de agroquímicos con vegetación ribereña nativa.</span>
+                                <strong>🌾 Sector Agrícola (Rotación)</strong>
+                                <span
+                                    >Franjas con surcos de cultivos (trigo, maíz, soja) alternados para cuidar
+                                    nutrientes.</span
+                                >
                             </div>
                             <div class="mq-zone mq-cow">
-                                <strong>🐄 Sector Ganadero Pastoril</strong>
-                                <span>Pasturas implantadas, molino de viento y tanque australiano.</span>
+                                <strong>🐄 Sector Ganadero (1–2 vacas y molino)</strong>
+                                <span
+                                    >Pastura delimitada con alambrado, molino de viento, tanque australiano y ganado
+                                    pastando.</span
+                                >
+                            </div>
+                            <div class="mq-zone mq-river">
+                                <strong>💧 Arroyo y Agua Subterránea</strong>
+                                <span>Curso de agua azul y manejo responsable para evitar contaminación.</span>
                             </div>
                             <div class="mq-zone mq-forest">
-                                <strong>🌳 Cortina Forestal Nativa</strong>
-                                <span>Árboles autóctonos que frenan la erosión eólica y protegen la fauna.</span>
+                                <strong>🌳 Cortina Forestal y Bosque Nativo</strong>
+                                <span>Árboles y vegetación nativa que protegen el suelo y la biodiversidad.</span>
                             </div>
                         </div>
                         <div class="pbox mt-1" id="pb" hidden>
                             <img id="pv" src="" alt="Foto de la maqueta del grupo" />
                         </div>
                         <p class="src">
-                            Justificación basada en lineamientos de desarrollo rural sostenible del INTA y MapBiomas
-                            Argentina.
+                            Base: cartón/telgopor con sectores de cultivo, pastura, molino, arroyo y árboles nativos.
                         </p>
                     </div>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 6: ACTIVIDAD 2A - LA PARADOJA DE LA ABUNDANCIA Y EL HAMBRE -->
-            <section class="slide" data-title="2A · Abundancia vs. Hambre">
+            <!-- HOJA 6: ACTIVIDAD 2A - PARADOJA ALIMENTARIA Y MAQUETA DE CONTRASTE -->
+            <section class="slide" data-title="2A · Abundancia vs. Hambre y Maqueta">
                 <div class="slide-header">
-                    <span class="chip">Actividad 2A · Alimentación y Desigualdad</span>
-                    <h2>¿Por qué un país que produce millones de toneladas sufre hambre?</h2>
+                    <span class="chip">Actividad 2A · Alimentación, Desigualdad y Maqueta</span>
+                    <h2>Por qué hay hambre en un país que produce grandes cantidades de alimentos</h2>
                     <p class="mut">
-                        La diferencia fundamental entre <b>disponibilidad física</b> de alimentos y
-                        <b>acceso económico</b> real.
+                        La desigualdad en el acceso económico, los ingresos y la distribución frente a la alta
+                        producción exportadora.
                     </p>
                 </div>
 
-                <div class="paradox-banner tilt">
+                <div class="paradox-banner">
                     <div class="px-side px-left">
                         <i data-lucide="ship"></i>
-                        <h3>El Polo Agroexportador</h3>
+                        <h3>Mitad 1: Campo Productor y Puerto Exportador</h3>
                         <p>
-                            Argentina produce alimentos para cientos de millones de personas (<b
-                                >49,9 M de ton. de soja</b
-                            >
-                            en 2024/25, más trigo, maíz y carne) orientados mayormente al mercado externo y divisas.
+                            Silos, camiones y barcos cargados de granos/alimentos: muestra la alta capacidad productiva
+                            y exportadora de la región (49,9 M de ton. de soja en 2024/25).
                         </p>
                     </div>
                     <div class="px-divider">
@@ -443,331 +433,314 @@
                     </div>
                     <div class="px-side px-right">
                         <i data-lucide="utensils-crossed"></i>
-                        <h3>La Realidad en los Hogares</h3>
+                        <h3>Mitad 2: Pueblo con Dificultades de Acceso</h3>
                         <p>
-                            La inseguridad alimentaria moderada o grave subió del
-                            <b>19,2 % (2014–16) al 31,7 % (2023–25)</b>, y la inseguridad grave casi se duplicó llegando
-                            al <b>11,0 %</b> (FAO SOFI 2026).
+                            Viviendas humildes y comedor comunitario: refleja que muchos hogares no pueden comprar
+                            alimentos suficientes por bajos salarios, desempleo o pobreza (inseguridad alimentaria del
+                            31,7 % en 2023–25 según FAO).
                         </p>
                     </div>
                 </div>
 
                 <div class="grid-3 mt-1">
-                    <div class="float-card tilt">
+                    <div class="float-card">
                         <div class="fc-icon bg-rust"><i data-lucide="wallet"></i></div>
                         <div>
-                            <h3>1. Barrera de Ingresos</h3>
+                            <h3>Acceso y Poder Adquisitivo</h3>
                             <p>
-                                El hambre actual no se debe a la escasez física, sino a la falta de poder adquisitivo:
-                                salarios bajos, informalidad laboral y pobreza impiden comprar la canasta básica.
+                                Tener alimentos producidos no basta si las familias no cuentan con ingresos o salarios
+                                suficientes para adquirirlos.
                             </p>
                         </div>
                     </div>
-                    <div class="float-card tilt">
+                    <div class="float-card">
                         <div class="fc-icon bg-gold"><i data-lucide="globe"></i></div>
                         <div>
-                            <h3>2. Precios Internacionales</h3>
+                            <h3>Orientación Exportadora</h3>
                             <p>
-                                Al exportarse como <i>commodities</i>, los precios internos de los alimentos quedan
-                                atados al valor internacional en dólares, encareciendo la comida en el mercado local.
+                                Gran parte de la producción se destina a mercados externos y generación de divisas,
+                                mientras los precios internos presionan el presupuesto familiar.
                             </p>
                         </div>
                     </div>
-                    <div class="float-card tilt">
+                    <div class="float-card">
                         <div class="fc-icon bg-blue"><i data-lucide="scale"></i></div>
                         <div>
-                            <h3>3. Derecho Humano Vulnerado</h3>
+                            <h3>Derecho Humano (FAO)</h3>
                             <p>
-                                Según la <b>FAO</b>, la alimentación es un derecho humano universal e inalienable, no
-                                una mercancía ni una caridad. Los Estados están obligados a garantizar su acceso
-                                efectivo.
+                                La FAO afirma que la alimentación adecuada es un derecho humano y que los Estados tienen
+                                la obligación de garantizarlo.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 7: ACTIVIDAD 2B - ACTORES FRENTE AL HAMBRE (ESTILO CANVA) -->
+            <!-- HOJA 7: ACTIVIDAD 2B - ACTORES FRENTE A LA PROBLEMÁTICA (INFOGRAFÍA) -->
             <section class="slide" data-title="2B · Organizaciones, Comedores y FAO">
                 <div class="slide-header">
-                    <span class="chip">Actividad 2B · Infografía de Actores Sociales</span>
-                    <h2>Redes de contención y políticas frente a la crisis alimentaria</h2>
-                    <p class="mut">El rol articulado desde el territorio local hasta los organismos internacionales.</p>
+                    <span class="chip">Actividad 2B · Función de los Actores (Infografía)</span>
+                    <h2>Comedores comunitarios, organizaciones sociales y organismos internacionales</h2>
+                    <p class="mut">
+                        Tres escalas de intervención frente a las dificultades de acceso a una alimentación adecuada.
+                    </p>
                 </div>
 
                 <div class="grid-3">
-                    <div class="card actor-card tilt">
-                        <div class="actor-badge bg-amber"><i data-lucide="hand-heart"></i> Escala Local / Barrial</div>
-                        <h3>Comedores Comunitarios y Merenderos</h3>
+                    <div class="card">
+                        <div class="actor-badge bg-amber">
+                            <i data-lucide="hand-heart"></i> Escala Local / Comunitaria
+                        </div>
+                        <h3>Comedores Comunitarios</h3>
                         <ul class="clean-list">
                             <li>
-                                <b>Asistencia directa:</b> Preparan y entregan viandas diarias a familias en situación
-                                de vulnerabilidad.
+                                <b>Asistencia directa:</b> Elaboran y entregan comidas o viandas diarias a familias y
+                                personas con dificultades económicas.
                             </li>
                             <li>
-                                <b>Contención social:</b> Funcionan como espacios de cuidado comunitario para niños,
-                                adultos mayores y trabajadores informales.
+                                <b>Cuidado barrial:</b> Acompañan a niños, niñas, adultos mayores y hogares vulnerables
+                                en situaciones de emergencia.
                             </li>
                             <li>
-                                <b>Limitación:</b> Dependen de donaciones y partidas estatales; cubren la urgencia pero
-                                no resuelven la causa estructural.
+                                <b>Alcance y límite:</b> Alivian el hambre cotidiano, pero requieren apoyo constante
+                                para sostenerse.
                             </li>
                         </ul>
                     </div>
 
-                    <div class="card actor-card tilt">
+                    <div class="card">
                         <div class="actor-badge bg-green"><i data-lucide="users-round"></i> Sociedad Civil</div>
-                        <h3>Organizaciones Sociales y Bancos de Alimentos</h3>
+                        <h3>Organizaciones Sociales</h3>
                         <ul class="clean-list">
                             <li>
-                                <b>Rescate de alimentos:</b> Recuperan productos aptos para el consumo que iban a
-                                desecharse en la cadena comercial (evitando el 17 % de desperdicio global).
+                                <b>Redes y campañas:</b> Organizan colectas, ollas populares, huertas comunitarias y
+                                entrega de alimentos.
                             </li>
                             <li>
-                                <b>Logística y redes:</b> Distribuyen mercadería a cientos de comedores y promueven
-                                huertas comunitarias.
+                                <b>Rescate y solidaridad:</b> Articulan ayuda en barrios vulnerables y denuncian la
+                                falta de acceso a alimentos.
                             </li>
                             <li>
-                                <b>Incidencia:</b> Visibilizan la emergencia alimentaria y reclaman políticas públicas.
+                                <b>Participación:</b> Impulsan la organización comunitaria y el reclamo de políticas
+                                alimentarias.
                             </li>
                         </ul>
                     </div>
 
-                    <div class="card actor-card tilt">
-                        <div class="actor-badge bg-blue"><i data-lucide="landmark"></i> Escala Global</div>
+                    <div class="card">
+                        <div class="actor-badge bg-blue"><i data-lucide="landmark"></i> Escala Internacional</div>
                         <h3>Organismos Internacionales (FAO)</h3>
                         <ul class="clean-list">
                             <li>
-                                <b>Marco de Derechos:</b> Establece las <i>Directrices Voluntarias</i> para el Derecho a
-                                la Alimentación y programas como <b>FARE</b> (rendición de cuentas y empoderamiento).
+                                <b>Derecho a la alimentación:</b> Promueve marcos normativos y directrices para que los
+                                Estados garanticen este derecho.
                             </li>
                             <li>
-                                <b>Monitoreo científico:</b> Publica informes globales (<i>SOFI</i>) con indicadores
-                                precisos de inseguridad alimentaria.
+                                <b>Datos y seguimiento:</b> Elabora informes globales (como SOFI) sobre hambre, costos
+                                de dietas e inseguridad alimentaria.
                             </li>
                             <li>
-                                <b>Cooperación técnica:</b> Asesora a los Estados para crear sistemas agroalimentarios
-                                sostenibles e inclusivos.
+                                <b>Cooperación:</b> Brinda asistencia técnica y promueve sistemas agroalimentarios
+                                justos y sostenibles.
                             </li>
                         </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 8: ACTIVIDAD 2C (PARTE 1) - PRODUCCIÓN Y PRECIOS DE DIETA SALUDABLE -->
+            <!-- HOJA 8: ACTIVIDAD 2C (PARTE 1) - PRODUCCIÓN Y PRECIOS DE DIETA SALUDABLE -->
             <section class="slide" data-title="2C · Producción y Precios (Gráficos 1-3)">
                 <div class="slide-header">
-                    <span class="chip">Actividad 2C · Variables Económicas (1/2)</span>
-                    <h2>Producción récord vs. encarecimiento de la dieta saludable</h2>
+                    <span class="chip">Actividad 2C · Precios, Salarios y Distribución (1/2)</span>
+                    <h2>Gran producción pampeana y aumento del costo de una dieta saludable</h2>
                     <p class="mut">
-                        Mientras las provincias pampeanas lideran la siembra, el costo diario de comer sano superó los
-                        4,28 USD PPA a nivel mundial y 4,91 USD PPA en Latinoamérica.
+                        Comparación entre la superficie sembrada de soja (2024/25) y el costo diario de una dieta
+                        saludable (FAO SOFI 2026).
                     </p>
                 </div>
 
                 <div id="g2C_part1" class="charts-grid"></div>
             </section>
 
-            <!-- DIAPOSITIVA 9: ACTIVIDAD 2C (PARTE 2) - INGRESOS, DISTRIBUCIÓN Y ARGENTINA -->
+            <!-- HOJA 9: ACTIVIDAD 2C (PARTE 2) - INGRESOS, DISTRIBUCIÓN Y ARGENTINA -->
             <section class="slide" data-title="2C · Salarios, Distribución y Argentina (Gráficos 4-6)">
                 <div class="slide-header">
-                    <span class="chip">Actividad 2C · Variables Económicas (2/2)</span>
-                    <h2>Salarios, intermediarios y deterioro del acceso en Argentina</h2>
+                    <span class="chip">Actividad 2C · Precios, Salarios y Distribución (2/2)</span>
+                    <h2>Incapacidad de costear dietas, cadena comercial e inseguridad alimentaria</h2>
                     <p class="mut">
-                        Entre el 70 % y el 75 % del precio final se forma fuera del campo, y 1 de cada 3 argentinos
-                        sufrió inseguridad alimentaria moderada o grave en 2023–2025.
+                        Cómo los ingresos, la etapa posterior a la finca (70–75 %) y los precios afectan el acceso en
+                        Argentina.
                     </p>
                 </div>
 
                 <div id="g2C_part2" class="charts-grid"></div>
             </section>
 
-            <!-- DIAPOSITIVA 10: ACTIVIDAD 2D - FLYER DE TRES PROPUESTAS CONCRETAS -->
+            <!-- HOJA 10: ACTIVIDAD 2D - FLYER DE TRES MEDIDAS -->
             <section class="slide" data-title="2D · Propuestas y Flyer">
                 <div class="slide-header">
-                    <span class="chip">Actividad 2D · Soluciones Viables</span>
-                    <h2>Tres medidas para garantizar el Derecho a la Alimentación</h2>
+                    <span class="chip">Actividad 2D · Propuestas y Flyer</span>
+                    <h2>Tres medidas para garantizar el derecho a la alimentación</h2>
                     <p class="mut">
-                        Propuestas fundamentadas en el pensamiento crítico y las recomendaciones de FAO e INTA.
+                        Acciones concretas orientadas a mejorar el acceso económico y territorial a los alimentos.
                     </p>
                 </div>
 
-                <div class="flyer-container tilt">
+                <div class="flyer-container">
                     <div class="flyer-banner">
                         <i data-lucide="megaphone"></i>
-                        <h3>CAMPAÑA POR LA SOBERANÍA Y SEGURIDAD ALIMENTARIA</h3>
+                        <h3>PROPUESTAS DEL GRUPO 3 PARA GARANTIZAR EL ACCESO A LOS ALIMENTOS</h3>
                     </div>
 
-                    <div class="grid-3 flyer-pillars">
+                    <div class="grid-3">
                         <div class="pillar-card">
                             <div class="pillar-num">01</div>
                             <i data-lucide="soup" class="pillar-ic"></i>
-                            <h4>Fortalecimiento de la Asistencia Alimentaria</h4>
+                            <h4>Ayuda Alimentaria Fortalecida</h4>
                             <p>
-                                Garantizar presupuesto continuo, alimentos frescos (frutas, verduras, lácteos) y
-                                equipamiento para comedores comunitarios y escolares, asegurando una nutrición de
-                                calidad.
+                                Ampliar y asegurar la provisión regular de alimentos nutritivos y variados a comedores
+                                comunitarios y familias de bajos ingresos, priorizando alimentos frescos.
                             </p>
                         </div>
 
                         <div class="pillar-card">
                             <div class="pillar-num">02</div>
                             <i data-lucide="tag" class="pillar-ic"></i>
-                            <h4>Acuerdos de Precios y Canasta Accesible</h4>
+                            <h4>Precios Accesibles en Básicos</h4>
                             <p>
-                                Implementar políticas de transparencia en la cadena comercial (donde hoy se concentra el
-                                70–75 % del costo) y acuerdos de precios en alimentos básicos para proteger el salario
-                                real.
+                                Impulsar políticas de precios razonables en alimentos esenciales y mayor transparencia
+                                en la distribución comercial para que los salarios alcancen a cubrir la dieta diaria.
                             </p>
                         </div>
 
                         <div class="pillar-card">
                             <div class="pillar-num">03</div>
                             <i data-lucide="tractor" class="pillar-ic"></i>
-                            <h4>Apoyo a la Agricultura Familiar y Cinturones Verdes</h4>
+                            <h4>Apoyo a Pequeños Productores</h4>
                             <p>
-                                Brindar créditos, asistencia técnica del <b>INTA</b> y mercados de cercanía (ferias
-                                francas) a pequeños productores periurbanos para acortar la logística y abaratar
-                                verduras y alimentos frescos.
+                                Brindar financiamiento, semillas, herramientas y asesoramiento técnico (INTA) a pequeños
+                                productores y mercados locales para fortalecer la producción cercana y reducir costos
+                                logísticos.
                             </p>
                         </div>
                     </div>
 
-                    <blockquote class="flyer-quote">
-                        «La alimentación es un derecho humano fundamental, no un privilegio de mercado.»
-                    </blockquote>
+                    <blockquote class="flyer-quote">«La alimentación es un derecho, no un privilegio».</blockquote>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 11: FUENTES OFICIALES Y CÓDIGOS QR -->
+            <!-- HOJA 11: FUENTES OFICIALES Y CÓDIGOS QR -->
             <section class="slide" data-title="Fuentes Oficiales y Códigos QR">
                 <div class="slide-header">
-                    <span class="chip">Respaldo Científico y Pautas del TP</span>
-                    <h2>Fuentes de Información Consultadas y Códigos QR</h2>
+                    <span class="chip">Fuentes de Información y Códigos QR</span>
+                    <h2>Fuentes consultadas y códigos QR obligatorios del grupo</h2>
                     <p class="mut">
-                        Documentación institucional verificada y accesos directos requeridos por la consigna.
+                        Instituciones consultadas para el trabajo práctico y códigos QR de fuente y producción grupal.
                     </p>
                 </div>
 
                 <div class="grid-2">
-                    <div class="card tilt">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="book-open-check" class="ic-gold"></i>
-                            <h3>Instituciones y Datos Utilizados</h3>
+                            <h3>Fuentes Institucionales</h3>
                         </div>
                         <ul class="clean-list">
                             <li>
-                                <b>FAO (Naciones Unidas):</b> Derecho humano a la alimentación, programa FARE e informe
-                                <i>SOFI 2026</i> (costo de dieta saludable e inseguridad alimentaria).
+                                <b>FAO:</b> Derecho a la alimentación como derecho humano, responsabilidad de los
+                                Estados e informes sobre seguridad alimentaria y nutrición.
                             </li>
                             <li>
-                                <b>MapBiomas Argentina:</b> Monitoreo satelital (1985–2024) de cobertura del suelo,
-                                expansión agrícola (+5,8 M ha) y pérdida de vegetación nativa (4,8 M ha).
+                                <b>MapBiomas Argentina:</b> Datos satelitales y estadísticas sobre cobertura y uso del
+                                suelo, expansión agrícola, vegetación nativa e incendios.
                             </li>
                             <li>
-                                <b>INTA:</b> Investigación agropecuaria, rotación de cultivos, desarrollo rural
-                                sostenible y agricultura familiar.
+                                <b>INTA:</b> Información técnica y científica sobre producción agropecuaria, manejo de
+                                suelos, recursos naturales y desarrollo rural.
                             </li>
                             <li>
-                                <b>Secretaría de Agricultura, Ganadería y Pesca:</b> Estadísticas de producción nacional
-                                y superficie sembrada de soja (campaña 2024/25).
+                                <b>Secretaría de Agricultura, Ganadería y Pesca:</b> Estadísticas oficiales de
+                                producción agrícola, ganadería, cultivos y comercio exterior.
                             </li>
                         </ul>
                     </div>
 
-                    <div class="card tilt">
+                    <div class="card">
                         <div class="card-head">
                             <i data-lucide="qr-code" class="ic-green"></i>
-                            <h3>Códigos QR Obligatorios del Grupo 3</h3>
+                            <h3>Códigos QR del Grupo 3</h3>
                         </div>
                         <div class="qr-grid">
                             <div class="qr-box">
                                 <img
-                                    src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://argentina.mapbiomas.org/"
-                                    alt="QR MapBiomas Argentina"
+                                    src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://argentina.mapbiomas.org/"
+                                    alt="QR Fuente MapBiomas"
                                 />
-                                <strong>QR 1 · Fuente Oficial</strong>
-                                <small>Plataforma MapBiomas Argentina (Mapas y estadísticas)</small>
+                                <strong>QR 1 · Fuente Consultada</strong>
+                                <small>MapBiomas Argentina (Cobertura y uso del suelo)</small>
                             </div>
                             <div class="qr-box">
                                 <img
-                                    src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://www.fao.org/right-to-food/es"
-                                    alt="QR FAO Derecho a la Alimentación"
+                                    src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.fao.org/right-to-food/es"
+                                    alt="QR Producción / FAO"
                                 />
-                                <strong>QR 2 · Fuente FAO</strong>
-                                <small>Portal FAO: Derecho a la Alimentación</small>
+                                <strong>QR 2 · Consulta / Producción</strong>
+                                <small>FAO: Derecho a la Alimentación</small>
                             </div>
                         </div>
-                        <p class="src text-center mt-1">
-                            Escaneá los códigos con el celular para verificar los datos en vivo durante la exposición.
+                        <p class="src text-center">
+                            Listos para imprimir o pegar en la maqueta y en la carpeta del trabajo.
                         </p>
                     </div>
                 </div>
             </section>
 
-            <!-- DIAPOSITIVA 12: CONCLUSIONES FINALES DEL GRUPO -->
+            <!-- HOJA 12: CONCLUSIONES FINALES DEL GRUPO -->
             <section class="slide" data-title="Conclusiones del Grupo">
                 <div class="slide-header">
                     <span class="chip">Cierre y Síntesis · Grupo 3</span>
-                    <h2>Conclusiones del Trabajo Práctico</h2>
+                    <h2>Conclusiones generales del trabajo práctico</h2>
                     <p class="mut">
-                        Reflexión final integrada sobre recursos naturales, modelos productivos y justicia alimentaria.
+                        Integración final sobre recursos naturales, conflictos productivos y acceso a los alimentos.
                     </p>
                 </div>
 
-                <div class="card conclusion-card tilt">
+                <div class="card">
                     <div class="grid-3">
                         <div class="conc-item">
                             <i data-lucide="globe-2"></i>
-                            <h4>1. Riqueza Natural con Límites</h4>
+                            <h4>Recursos y Conflictos</h4>
                             <p>
-                                La Región Pampeana posee condiciones excepcionales de suelo, agua y clima, pero su
-                                explotación intensiva sin planificación degrada los ecosistemas nativos y desplaza otras
-                                producciones.
+                                La Región Pampeana cuenta con excelentes condiciones naturales, pero la competencia
+                                entre actividades y el uso intensivo del suelo generan conflictos productivos y
+                                ambientales.
                             </p>
                         </div>
                         <div class="conc-item">
                             <i data-lucide="scale"></i>
-                            <h4>2. Producir no basta</h4>
+                            <h4>Producción y Desigualdad</h4>
                             <p>
-                                Alcanzar récords de cosecha y exportación no garantiza la seguridad alimentaria si los
-                                salarios pierden frente a la inflación y la cadena comercial concentra hasta el 75 % del
-                                precio.
+                                Producir grandes volúmenes de alimentos no garantiza el acceso de toda la población: los
+                                precios, los ingresos/salarios y la distribución comercial son decisivos.
                             </p>
                         </div>
                         <div class="conc-item">
                             <i data-lucide="sprout"></i>
-                            <h4>3. Futuro Sostenible y Justo</h4>
+                            <h4>Hacia un Modelo Sostenible</h4>
                             <p>
-                                El desafío de la Argentina es combinar la producción agropecuaria sostenible (rotación,
-                                cuidado hídrico) con políticas públicas que aseguren el derecho a la alimentación para
-                                toda la población.
+                                Combinar prácticas productivas sostenibles con políticas públicas y apoyo comunitario es
+                                clave para cuidar el ambiente y hacer efectivo el derecho a la alimentación.
                             </p>
                         </div>
                     </div>
 
                     <div class="note mt-1" contenteditable="true">
-                        <b>Muchas gracias por su atención.</b> —
-                        <i>Mateo Sosa, Juan Rodriguez, Ramiro Mercado y Bautista Pereda (Grupo 3 · Núcleo 6).</i>
+                        <b>Grupo 3 · Geografía (Núcleo 6):</b> Mateo Sosa, Juan Rodriguez, Ramiro Mercado y Bautista
+                        Pereda — Fecha de presentación: 1 de diciembre.
                     </div>
                 </div>
             </section>
         </main>
-
-        <!-- Controles inferiores de navegación de diapositivas -->
-        <footer class="deck-controls">
-            <button id="prevSlide" class="nav-arrow" title="Diapositiva anterior (Flecha Izquierda)">
-                <i data-lucide="chevron-left"></i> Anterior
-            </button>
-            <div class="slide-counter">
-                <span id="slideNum">1 / 12</span>
-                <span class="sep">·</span>
-                <span id="slideTitleDisplay">Portada y Presentación</span>
-            </div>
-            <button id="nextSlide" class="nav-arrow primary" title="Siguiente diapositiva (Flecha Derecha)">
-                Siguiente <i data-lucide="chevron-right"></i>
-            </button>
-        </footer>
 
         <script src="js/config.js"></script>
         <script src="js/datos.js"></script>

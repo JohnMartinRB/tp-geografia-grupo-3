@@ -23,75 +23,75 @@ function el(t, p, h) {
 }
 
 // ==========================================
-// 1. GESTIÓN DE DIAPOSITIVAS (DECK NAVIGATION)
+// 1. CONFIGURACIÓN VERTICAL DE DIAPOSITIVAS + BOTÓN IMPRIMIR
 // ==========================================
 const slides = [...document.querySelectorAll(".slide")];
-const progressBar = document.getElementById("progressBar");
-const slideNum = document.getElementById("slideNum");
-const slideTitleDisplay = document.getElementById("slideTitleDisplay");
 const slideIndex = document.getElementById("slideIndex");
 const indexGrid = document.getElementById("indexGrid");
+const topActions = document.querySelector(".top-actions");
 
-let currentSlide = 0;
+// Agregar botón directo de Imprimir en la barra superior
+if (topActions) {
+    const printBtn = el("button", {
+        className: "pill-btn print-btn",
+        title: "Imprimir o guardar todas las diapositivas en PDF",
+        innerHTML: `<i data-lucide="printer"></i> Imprimir / PDF`,
+    });
+    printBtn.onclick = () => window.print();
+    topActions.prepend(printBtn);
+    if (window.lucide) lucide.createIcons();
+}
 
+// Numerar cada diapositiva y hacerlas todas visibles una debajo de la otra
+slides.forEach((s, idx) => {
+    s.classList.add("active");
+    s.id = `slide-${idx + 1}`;
+    const badge = el("span", {
+        className: "slide-badge-num",
+        textContent: `Diapositiva ${idx + 1} / ${slides.length}`,
+    });
+    s.prepend(badge);
+});
+
+// Índice rápido con desplazamiento suave (scroll) hacia cada diapositiva
 function buildIndex() {
+    if (!indexGrid) return;
     indexGrid.innerHTML = "";
     slides.forEach((s, idx) => {
         const btn = el("button", {
-            className: "index-item" + (idx === currentSlide ? " current" : ""),
+            className: "index-item",
             textContent: `${idx + 1}. ${s.dataset.title || "Diapositiva " + (idx + 1)}`,
         });
         btn.onclick = () => {
-            goToSlide(idx);
+            s.scrollIntoView({ behavior: "smooth", block: "start" });
             slideIndex.hidden = true;
         };
         indexGrid.appendChild(btn);
     });
 }
 
-function goToSlide(index) {
-    currentSlide = (index + slides.length) % slides.length;
-    slides.forEach((s, i) => s.classList.toggle("active", i === currentSlide));
-
-    // Actualizar indicadores y progreso
-    const pct = ((currentSlide + 1) / slides.length) * 100;
-    progressBar.style.width = pct + "%";
-    slideNum.textContent = `${currentSlide + 1} / ${slides.length}`;
-    slideTitleDisplay.textContent = slides[currentSlide].dataset.title || "";
-
-    // Redimensionar gráficos visibles en la diapositiva activa
-    CHARTS.forEach((c) => {
-        if (c.ch) c.ch.resize();
-    });
-
-    buildIndex();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+if (document.getElementById("toggleGrid")) {
+    document.getElementById("toggleGrid").onclick = () => {
+        slideIndex.hidden = !slideIndex.hidden;
+    };
+}
+if (document.getElementById("closeIndex")) {
+    document.getElementById("closeIndex").onclick = () => {
+        slideIndex.hidden = true;
+    };
+}
+if (document.getElementById("btnFullscreen")) {
+    document.getElementById("btnFullscreen").onclick = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+            document.exitFullscreen().catch(() => {});
+        }
+    };
 }
 
-document.getElementById("prevSlide").onclick = () => goToSlide(currentSlide - 1);
-document.getElementById("nextSlide").onclick = () => goToSlide(currentSlide + 1);
-document.getElementById("toggleGrid").onclick = () => {
-    slideIndex.hidden = !slideIndex.hidden;
-};
-document.getElementById("closeIndex").onclick = () => {
-    slideIndex.hidden = true;
-};
-
-// Pantalla completa
-document.getElementById("btnFullscreen").onclick = () => {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-    } else {
-        document.exitFullscreen().catch(() => {});
-    }
-};
-
-// Navegación con teclado (flechas izquierda/derecha)
 addEventListener("keydown", (e) => {
-    if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName) || e.target.isContentEditable) return;
-    if (e.key === "ArrowRight" || e.key === "PageDown") goToSlide(currentSlide + 1);
-    if (e.key === "ArrowLeft" || e.key === "PageUp") goToSlide(currentSlide - 1);
-    if (e.key === "Escape") slideIndex.hidden = true;
+    if (e.key === "Escape" && slideIndex) slideIndex.hidden = true;
 });
 
 buildIndex();
@@ -105,7 +105,16 @@ CHARTS.forEach((c) => {
     mk(c);
 });
 
-matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => CHARTS.forEach(draw));
+// Redimensionar todos los gráficos antes de imprimir para que salgan nítidos
+window.addEventListener("beforeprint", () => {
+    CHARTS.forEach((c) => {
+        if (c.ch) {
+            c.ch.options.animation = false;
+            c.ch.resize();
+            c.ch.update();
+        }
+    });
+});
 
 function mk(c) {
     const targetContainer = document.getElementById(c.container);
@@ -224,7 +233,7 @@ function draw(c) {
         options: {
             indexAxis: t === "barH" ? "y" : "x",
             responsive: true,
-            animation: window.FX ? { duration: 750 } : false,
+            animation: false,
             maintainAspectRatio: false,
             plugins: {
                 legend: { display: pie || c.series.length > 1 },
@@ -236,7 +245,7 @@ function draw(c) {
 }
 
 // ==========================================
-// 3. IMAGEN OPCIONAL DE MAQUETA + EFECTOS 3D
+// 3. IMAGEN OPCIONAL DE MAQUETA + TRIGO 3D
 // ==========================================
 (() => {
     const pb = document.getElementById("pb");
@@ -251,38 +260,28 @@ function draw(c) {
 
 (function () {
     const fb = document.getElementById("fx");
-    const lab = () => (fb.textContent = FX ? "✨ FX: Sí" : "✨ FX: No");
+    const lab = () => {
+        if (fb) fb.textContent = FX ? "✨ FX: Sí" : "✨ FX: No";
+    };
     lab();
-
-    document.querySelectorAll(".tilt").forEach((c) => {
-        c.addEventListener("pointermove", (e) => {
-            if (!FX || e.pointerType !== "mouse") return;
-            const r = c.getBoundingClientRect(),
-                x = (e.clientX - r.left) / r.width - 0.5,
-                y = (e.clientY - r.top) / r.height - 0.5;
-            c.style.transform = `perspective(900px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
-        });
-        c.addEventListener("pointerleave", () => (c.style.transform = ""));
-    });
 
     const hero = document.getElementById("hero");
     const cv = document.getElementById("three");
     let sync = () => {};
 
-    fb.onclick = () => {
-        window.FX = !FX;
-        document.body.classList.toggle("fx", FX);
-        lab();
-        CHARTS.forEach((c) => {
-            if (c.ch) c.ch.options.animation = FX ? { duration: 750 } : false;
-        });
-        sync();
-    };
+    if (fb) {
+        fb.onclick = () => {
+            window.FX = !FX;
+            document.body.classList.toggle("fx", FX);
+            lab();
+            sync();
+        };
+    }
 
     if (!window.THREE || !hero || !cv) return;
     let R;
     try {
-        R = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true });
+        R = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true, preserveDrawingBuffer: true });
     } catch (e) {
         return;
     }
@@ -373,7 +372,7 @@ function draw(c) {
         vis = true;
     const size = () => {
         const w = hero.clientWidth || 800,
-            h = hero.clientHeight || 300;
+            h = hero.clientHeight || 280;
         R.setSize(w, h, false);
         C.aspect = w / h;
         C.updateProjectionMatrix();
