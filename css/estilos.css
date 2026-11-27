@@ -10,23 +10,39 @@
     --rust: #b8532a;
     --blue: #3f7899;
     box-sizing: border-box;
-    color-scheme: light;
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1c1a12;
+        --fg: #f1ead6;
+        --mut: #b9ad8a;
+        --card: #27241a;
+        --bd: #4a4328;
+        --ac: #9db84b;
+        --grid: #ffffff22;
+        --gold: #e0b64d;
+        --rust: #e0784e;
+        --blue: #6aa7cc;
+        color-scheme: dark;
+    }
 }
 
 * {
     box-sizing: border-box;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
 }
 
 html {
     font-size: 16px;
-    scroll-behavior: smooth;
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    overflow-x: hidden;
     background: var(--bg);
     color: var(--fg);
     font:
@@ -75,7 +91,7 @@ body {
     background: #e07a3a;
 }
 
-/* Barra superior */
+/* Barra superior fija */
 .topbar {
     display: flex;
     z-index: 40;
@@ -87,7 +103,7 @@ body {
     gap: 12px;
     border-bottom: 1px solid var(--bd);
     backdrop-filter: blur(12px);
-    background: color-mix(in srgb, var(--card) 92%, transparent);
+    background: color-mix(in srgb, var(--card) 88%, transparent);
 }
 
 .brand {
@@ -104,7 +120,19 @@ body {
 }
 
 .progress-wrap {
-    display: none;
+    flex: 1;
+    max-width: 340px;
+    height: 8px;
+    overflow: hidden;
+    border-radius: 99px;
+    background: var(--bd);
+}
+.progress-bar {
+    width: 8.33%;
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--ac), var(--gold));
+    transition: width 0.35s ease;
 }
 
 .top-actions {
@@ -116,13 +144,13 @@ body {
 .pill-btn {
     display: inline-flex;
     align-items: center;
-    padding: 6px 14px;
+    padding: 6px 13px;
     gap: 6px;
     border: 1px solid var(--bd);
     border-radius: 99px;
     background: var(--bg);
     color: var(--fg);
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.2s;
@@ -130,11 +158,6 @@ body {
 .pill-btn:hover {
     transform: translateY(-1px);
     border-color: var(--gold);
-}
-.pill-btn.print-btn {
-    border-color: var(--gold);
-    background: var(--gold);
-    color: #2b2814;
 }
 .pill-btn svg {
     width: 15px;
@@ -188,50 +211,42 @@ body {
     text-align: left;
     cursor: pointer;
 }
-.index-item:hover {
+.index-item.current {
     border-color: var(--gold);
-}
-
-/* Contenedor vertical de todas las diapositivas una debajo de la otra */
-.deck {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 24px 20px 60px;
-    gap: 36px;
-}
-
-/* Cada diapositiva visible en flujo vertical */
-.slide {
-    display: block !important;
-    position: relative;
-    padding: 26px;
-    border: 1px solid var(--bd);
-    border-radius: 22px;
-    background: color-mix(in srgb, var(--card) 75%, var(--bg));
-    box-shadow: 0 10px 30px rgba(45, 42, 24, 0.08);
-    break-inside: avoid;
-    page-break-inside: avoid;
-}
-
-.slide-badge-num {
-    position: absolute;
-    top: 18px;
-    right: 22px;
-    padding: 3px 11px;
-    border: 1px solid var(--bd);
-    border-radius: 99px;
-    background: var(--bg);
-    color: var(--mut);
+    background: color-mix(in srgb, var(--gold) 18%, var(--card));
     font-weight: 700;
-    font-size: 0.78rem;
+}
+
+/* Contenedor principal de diapositivas */
+.deck {
+    flex: 1;
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 18px 20px 90px;
+}
+
+.slide {
+    display: none;
+    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.slide.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(16px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .slide-header {
     margin-bottom: 18px;
-    padding-right: 90px;
 }
 
 .chip {
@@ -282,9 +297,9 @@ h3 {
 /* Hero con Three.js */
 .hero {
     position: relative;
-    height: 280px;
+    height: 300px;
     overflow: hidden;
-    border-radius: 18px;
+    border-radius: 20px;
     box-shadow: 0 10px 28px rgba(45, 42, 24, 0.15);
     color: #2b2814;
 }
@@ -325,7 +340,7 @@ h3 {
 }
 .charts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(440px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
     gap: 18px;
 }
 
@@ -351,7 +366,7 @@ h3 {
     border-top: 5px solid var(--gold);
     border-radius: 16px;
     background: var(--card);
-    box-shadow: 0 6px 18px rgba(90, 74, 21, 0.06);
+    box-shadow: 0 8px 22px rgba(90, 74, 21, 0.08);
 }
 .card:nth-of-type(even) {
     border-top-color: var(--ac);
@@ -392,7 +407,14 @@ h3 {
     border: 1px solid var(--bd);
     border-radius: 16px;
     background: var(--card);
-    box-shadow: 0 6px 18px rgba(45, 42, 24, 0.07);
+    box-shadow: 0 10px 24px rgba(45, 42, 24, 0.09);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+.float-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(45, 42, 24, 0.14);
 }
 .float-card p {
     margin: 0;
@@ -482,7 +504,7 @@ h3 {
 /* Mapa esquemático 1A */
 .pampa-svg {
     width: 100%;
-    max-height: 240px;
+    max-height: 250px;
     border: 1px solid var(--bd);
     border-radius: 12px;
 }
@@ -527,14 +549,9 @@ h3 {
 /* KPI Strip (1B) */
 .kpi-strip {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     margin-bottom: 16px;
     gap: 12px;
-}
-@media (max-width: 760px) {
-    .kpi-strip {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 .kpi-box {
     display: flex;
@@ -676,6 +693,7 @@ h3 {
     border: 2px solid var(--gold);
     border-radius: 20px;
     background: var(--card);
+    box-shadow: 0 12px 32px rgba(90, 74, 21, 0.14);
 }
 .flyer-banner {
     display: flex;
@@ -767,7 +785,7 @@ h3 {
     color: var(--gold);
 }
 
-/* Gráficos Chart.js y tablas */
+/* Gráficos Chart.js y tablas editables */
 .bar {
     display: flex;
     flex-wrap: wrap;
@@ -801,7 +819,7 @@ select:hover {
 }
 .cv {
     position: relative;
-    height: 260px;
+    height: 280px;
 }
 .tw {
     margin: 12px 0;
@@ -818,83 +836,61 @@ td {
     text-align: left;
 }
 
-/* Ocultamos los botones inferiores de pasar diapositiva */
+/* Barra inferior fija de navegación */
 .deck-controls {
-    display: none !important;
+    display: flex;
+    z-index: 40;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px;
+    border-top: 1px solid var(--bd);
+    backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--card) 92%, transparent);
 }
 
+.nav-arrow {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    gap: 6px;
+    border: 1px solid var(--bd);
+    border-radius: 99px;
+    background: var(--bg);
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all 0.2s;
+}
+.nav-arrow.primary {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: #2b2814;
+}
+.nav-arrow:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+.nav-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+.slide-counter {
+    color: var(--mut);
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+.slide-counter #slideNum {
+    color: var(--fg);
+    font-weight: 800;
+}
+.sep {
+    margin: 0 6px;
+}
 [hidden] {
     display: none !important;
-}
-
-/* =========================================================
-   ESTILOS ESPECÍFICOS PARA IMPRESIÓN (Ctrl + P / Imprimir)
-   ========================================================= */
-@media print {
-    @page {
-        size: A4 landscape;
-        margin: 10mm;
-    }
-
-    body {
-        background: #fffdf4 !important;
-    }
-
-    /* Ocultar barras, botones interactivos y fondos pesados al imprimir */
-    .topbar,
-    .slide-index,
-    .deck-controls,
-    .bar,
-    .orb,
-    #bg {
-        display: none !important;
-    }
-
-    .deck {
-        max-width: 100%;
-        padding: 0;
-        gap: 0;
-    }
-
-    /* Cada diapositiva ocupa una hoja completa y salta a la siguiente */
-    .slide {
-        margin: 0 0 12mm 0;
-        padding: 16px 20px;
-        border: 1px solid #d5c693;
-        background: #fffdf4 !important;
-        box-shadow: none !important;
-        break-inside: avoid !important;
-        page-break-inside: avoid !important;
-        break-after: page !important;
-        page-break-after: always !important;
-    }
-
-    .slide:last-child {
-        break-after: auto !important;
-        page-break-after: auto !important;
-    }
-
-    /* Mantener grillas horizontales en hoja apaisada */
-    .grid-2 {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    .grid-3 {
-        grid-template-columns: repeat(3, 1fr) !important;
-    }
-    .grid-3-asym {
-        grid-template-columns: 1.15fr 1fr !important;
-    }
-    .charts-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    .kpi-strip {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
-    .paradox-banner {
-        grid-template-columns: 1fr auto 1fr !important;
-    }
-
-    .cv {
-        height: 200px !important;
-    }
 }
