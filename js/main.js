@@ -1,5 +1,11 @@
 window.FX = !matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.body.classList.toggle("fx", FX);
+
+// Inicializar iconos de Lucide
+if (window.lucide) {
+    lucide.createIcons();
+}
+
 const COL = ["#c8962b", "#6f8a2f", "#8a5a2b", "#4f86a8"];
 const TYPES = [
     ["bar", "Barras"],
@@ -15,16 +21,100 @@ function el(t, p, h) {
     if (h !== undefined) e.innerHTML = h;
     return e;
 }
+
+// ==========================================
+// 1. GESTIÓN DE DIAPOSITIVAS (DECK NAVIGATION)
+// ==========================================
+const slides = [...document.querySelectorAll(".slide")];
+const progressBar = document.getElementById("progressBar");
+const slideNum = document.getElementById("slideNum");
+const slideTitleDisplay = document.getElementById("slideTitleDisplay");
+const slideIndex = document.getElementById("slideIndex");
+const indexGrid = document.getElementById("indexGrid");
+
+let currentSlide = 0;
+
+function buildIndex() {
+    indexGrid.innerHTML = "";
+    slides.forEach((s, idx) => {
+        const btn = el("button", {
+            className: "index-item" + (idx === currentSlide ? " current" : ""),
+            textContent: `${idx + 1}. ${s.dataset.title || "Diapositiva " + (idx + 1)}`,
+        });
+        btn.onclick = () => {
+            goToSlide(idx);
+            slideIndex.hidden = true;
+        };
+        indexGrid.appendChild(btn);
+    });
+}
+
+function goToSlide(index) {
+    currentSlide = (index + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle("active", i === currentSlide));
+
+    // Actualizar indicadores y progreso
+    const pct = ((currentSlide + 1) / slides.length) * 100;
+    progressBar.style.width = pct + "%";
+    slideNum.textContent = `${currentSlide + 1} / ${slides.length}`;
+    slideTitleDisplay.textContent = slides[currentSlide].dataset.title || "";
+
+    // Redimensionar gráficos visibles en la diapositiva activa
+    CHARTS.forEach((c) => {
+        if (c.ch) c.ch.resize();
+    });
+
+    buildIndex();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+document.getElementById("prevSlide").onclick = () => goToSlide(currentSlide - 1);
+document.getElementById("nextSlide").onclick = () => goToSlide(currentSlide + 1);
+document.getElementById("toggleGrid").onclick = () => {
+    slideIndex.hidden = !slideIndex.hidden;
+};
+document.getElementById("closeIndex").onclick = () => {
+    slideIndex.hidden = true;
+};
+
+// Pantalla completa
+document.getElementById("btnFullscreen").onclick = () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+        document.exitFullscreen().catch(() => {});
+    }
+};
+
+// Navegación con teclado (flechas izquierda/derecha)
+addEventListener("keydown", (e) => {
+    if (/INPUT|SELECT|TEXTAREA/.test(e.target.tagName) || e.target.isContentEditable) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") goToSlide(currentSlide + 1);
+    if (e.key === "ArrowLeft" || e.key === "PageUp") goToSlide(currentSlide - 1);
+    if (e.key === "Escape") slideIndex.hidden = true;
+});
+
+buildIndex();
+
+// ==========================================
+// 2. GRÁFICOS INTERACTIVOS (CHART.JS)
+// ==========================================
 CHARTS.forEach((c) => {
     c.o = JSON.stringify([c.labels, c.series]);
     c.type = c.type || "bar";
     mk(c);
 });
+
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => CHARTS.forEach(draw));
+
 function mk(c) {
+    const targetContainer = document.getElementById(c.container);
+    if (!targetContainer) return;
+
     const s = el("section");
     s.className = "card";
-    s.append(el("h2", {}, c.title), el("p", { className: "mut" }, c.sub + " · Unidad: " + c.unit));
+    s.append(el("h3", {}, c.title), el("p", { className: "mut" }, c.sub + " · Unidad: " + c.unit));
+
     const bar = el("div");
     bar.className = "bar";
     const sel = el("select");
@@ -34,37 +124,39 @@ function mk(c) {
         c.type = sel.value;
         draw(c);
     };
-    const add = el("button", {}, "+ Agregar fila");
-    add.onclick = () => {
-        c.labels.push("Nuevo");
-        c.series.forEach((x) => x.data.push(null));
-        tbl(c);
-        draw(c);
-    };
-    const rst = el("button", {}, "Restablecer datos");
+
+    const rst = el("button", {}, "Restablecer");
     rst.onclick = () => {
         [c.labels, c.series] = JSON.parse(c.o);
         tbl(c);
         draw(c);
     };
+
     const png = el("button", {}, "Descargar PNG");
     png.onclick = () => {
         el("a", { href: c.cv.toDataURL("image/png"), download: c.id + ".png" }).click();
     };
-    bar.append(sel, add, rst, png);
+
+    bar.append(sel, rst, png);
+
     const w = el("div");
     w.className = "cv";
     c.cv = el("canvas");
     w.append(c.cv);
+
     c.tb = el("div");
     c.tb.className = "tw";
+
     const n = el("div", { contentEditable: "true" }, c.txt);
     n.className = "note";
+
     s.append(bar, w, c.tb, n, el("p", { className: "src" }, "Fuente: " + c.src));
-    document.getElementById("g" + c.g).append(s);
+    targetContainer.append(s);
+
     tbl(c);
     draw(c);
 }
+
 function tbl(c) {
     const t = el("table"),
         hd = el("tr");
@@ -79,8 +171,8 @@ function tbl(c) {
         th.append(i);
         hd.append(th);
     });
-    hd.append(el("th"));
     t.append(hd);
+
     c.labels.forEach((l, r) => {
         const tr = el("tr"),
             td = el("td"),
@@ -91,6 +183,7 @@ function tbl(c) {
         };
         td.append(a);
         tr.append(td);
+
         c.series.forEach((x) => {
             const d = el("td"),
                 i = el("input", { type: "number", step: "any", value: x.data[r] == null ? "" : x.data[r] });
@@ -101,26 +194,18 @@ function tbl(c) {
             d.append(i);
             tr.append(d);
         });
-        const dd = el("td"),
-            b = el("button", { title: "Quitar fila" }, "×");
-        b.onclick = () => {
-            c.labels.splice(r, 1);
-            c.series.forEach((x) => x.data.splice(r, 1));
-            tbl(c);
-            draw(c);
-        };
-        dd.append(b);
-        tr.append(dd);
         t.append(tr);
     });
     c.tb.replaceChildren(t);
 }
+
 function draw(c) {
     const t = c.type,
         pie = t === "doughnut";
     Chart.defaults.color = css("--fg");
     Chart.defaults.borderColor = css("--grid");
     Chart.defaults.font.family = "system-ui,sans-serif";
+
     const ds = (pie ? [c.series[0]] : c.series).map((s, i) => ({
         label: s.name,
         data: s.data,
@@ -131,6 +216,7 @@ function draw(c) {
         spanGaps: true,
         tension: 0.25,
     }));
+
     if (c.ch) c.ch.destroy();
     c.ch = new Chart(c.cv, {
         type: t === "barH" ? "bar" : t,
@@ -138,7 +224,7 @@ function draw(c) {
         options: {
             indexAxis: t === "barH" ? "y" : "x",
             responsive: true,
-            animation: window.FX ? { duration: 900 } : false,
+            animation: window.FX ? { duration: 750 } : false,
             maintainAspectRatio: false,
             plugins: {
                 legend: { display: pie || c.series.length > 1 },
@@ -148,164 +234,52 @@ function draw(c) {
         },
     });
 }
-document.querySelectorAll(".nav button").forEach(
-    (b) =>
-        (b.onclick = () => {
-            const g = b.dataset.g,
-                open = !b.classList.contains("on");
-            document.querySelectorAll(".nav button").forEach((x) => x.classList.toggle("on", open && x === b));
-            ["1B", "2C"].forEach((k) => (document.getElementById("g" + k).hidden = !(open && k === g)));
-            if (open) {
-                CHARTS.filter((c) => c.g === g).forEach((c) => c.ch.resize());
-                document.getElementById("g" + g).scrollIntoView({ behavior: "smooth" });
-            }
-        }),
-);
+
+// ==========================================
+// 3. IMAGEN OPCIONAL DE MAQUETA + EFECTOS 3D
+// ==========================================
 (() => {
-    const pb = document.getElementById("pb"),
-        g = pb.parentElement,
-        im = new Image();
-    g.style.gridTemplateColumns = "1fr";
+    const pb = document.getElementById("pb");
+    if (!pb || !window.CONFIG) return;
+    const im = new Image();
     im.onload = () => {
         document.getElementById("pv").src = im.src;
         pb.hidden = false;
-        g.style.gridTemplateColumns = "";
     };
     im.src = CONFIG.imagenPresentacion;
 })();
+
 (function () {
-    const $ = (id) => document.getElementById(id),
-        fb = $("fx");
-    const lab = () => (fb.textContent = FX ? "✨ Animaciones: sí" : "✨ Animaciones: no");
+    const fb = document.getElementById("fx");
+    const lab = () => (fb.textContent = FX ? "✨ FX: Sí" : "✨ FX: No");
     lab();
-    const io = new IntersectionObserver(
-        (es) =>
-            es.forEach((e) => {
-                if (e.isIntersecting) {
-                    e.target.classList.add("in");
-                    io.unobserve(e.target);
-                }
-            }),
-        { threshold: 0.08 },
-    );
-    document.querySelectorAll(".card").forEach((c) => io.observe(c));
+
     document.querySelectorAll(".tilt").forEach((c) => {
         c.addEventListener("pointermove", (e) => {
             if (!FX || e.pointerType !== "mouse") return;
             const r = c.getBoundingClientRect(),
                 x = (e.clientX - r.left) / r.width - 0.5,
                 y = (e.clientY - r.top) / r.height - 0.5;
-            c.style.transform = "perspective(800px) rotateY(" + x * 6 + "deg) rotateX(" + -y * 6 + "deg)";
+            c.style.transform = `perspective(900px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg)`;
         });
         c.addEventListener("pointerleave", () => (c.style.transform = ""));
     });
-    const orbs = [...document.querySelectorAll(".orb")],
-        hero = $("hero"),
-        cv = $("three"),
-        ht = hero.querySelector(".t");
-    addEventListener(
-        "scroll",
-        () => {
-            const y = FX ? scrollY : 0;
-            ht.style.transform = "translateY(" + y * 0.22 + "px)";
-            cv.style.transform = "translateY(" + y * 0.12 + "px)";
-            orbs.forEach((o) => (o.style.transform = "translateY(" + -y * o.dataset.s + "px)"));
-        },
-        { passive: true },
-    );
+
+    const hero = document.getElementById("hero");
+    const cv = document.getElementById("three");
     let sync = () => {};
+
     fb.onclick = () => {
         window.FX = !FX;
         document.body.classList.toggle("fx", FX);
         lab();
         CHARTS.forEach((c) => {
-            c.ch.options.animation = FX ? { duration: 900 } : false;
+            if (c.ch) c.ch.options.animation = FX ? { duration: 750 } : false;
         });
-        dispatchEvent(new Event("scroll"));
         sync();
     };
-    const sv = $("sl"),
-        fsb = $("sf"),
-        LAB = "⛶ Pantalla completa",
-        OUT = "✖ Salir";
-    const fixed = (on) => {
-        sv.classList.toggle("fs", on);
-        fsb.textContent = on ? OUT : LAB;
-    };
-    fsb.onclick = async () => {
-        if (document.fullscreenElement) {
-            document.exitFullscreen();
-            return;
-        }
-        if (sv.classList.contains("fs")) {
-            fixed(false);
-            return;
-        }
-        try {
-            await sv.requestFullscreen();
-        } catch (e) {
-            fixed(true);
-        }
-    };
-    document.addEventListener("fullscreenchange", () => {
-        fsb.textContent = document.fullscreenElement ? OUT : LAB;
-    });
-    addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && sv.classList.contains("fs")) fixed(false);
-    });
-    let sl = [],
-        si = 0;
-    const show = () => {
-        if (!sl.length) return;
-        si = (si + sl.length) % sl.length;
-        $("sim").src = sl[si];
-        $("sn").textContent = si + 1 + " / " + sl.length;
-        $("sl").hidden = false;
-    };
-    const probe = (u) =>
-        new Promise((r) => {
-            const i = new Image();
-            i.onload = () => r(u);
-            i.onerror = () => r(null);
-            i.src = u;
-        });
-    (async () => {
-        let L = (CONFIG.diapositivas || []).slice();
-        if (!L.length) {
-            for (let n = 1; n <= 60; n++) {
-                const u = await probe("assets/diapositivas/" + n + ".png");
-                if (!u) break;
-                L.push(u);
-            }
-        }
-        sl = L;
-        if (sl.length) {
-            $("canva").hidden = false;
-            show();
-        }
-    })();
-    $("sp").onclick = () => {
-        si--;
-        show();
-    };
-    $("sx").onclick = () => {
-        si++;
-        show();
-    };
-    addEventListener("keydown", (e) => {
-        if (sl.length && !/INPUT|SELECT/.test(e.target.tagName) && !e.target.isContentEditable) {
-            if (e.key === "ArrowRight") {
-                si++;
-                show();
-            }
-            if (e.key === "ArrowLeft") {
-                si--;
-                show();
-            }
-        }
-    });
 
-    if (!window.THREE) return;
+    if (!window.THREE || !hero || !cv) return;
     let R;
     try {
         R = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: true });
@@ -314,6 +288,7 @@ document.querySelectorAll(".nav button").forEach(
     }
     R.setPixelRatio(Math.min(devicePixelRatio, 2));
     R.setClearColor(0, 0);
+
     const S = new THREE.Scene(),
         C = new THREE.PerspectiveCamera(52, 1, 0.1, 90);
     const HZ = "vec3(.98,.84,.6)",
@@ -321,6 +296,7 @@ document.querySelectorAll(".nav button").forEach(
             "float gust=sin(w.x*.22+w.z*.16-t*1.3)*.5+.5;float sw=(sin(t*1.7+w.x*.7+w.z*.5)*.07+sin(t*.8+w.z*.9)*.05+gust*.22-.08)*(.75+m.x*.5);";
     const U = { t: { value: 0 }, m: { value: new THREE.Vector2() } };
     const head = "uniform float t;uniform vec2 m;varying float s;varying float d;varying float b;varying float h;";
+
     const stalkM = new THREE.ShaderMaterial({
         side: THREE.DoubleSide,
         uniforms: U,
@@ -334,6 +310,7 @@ document.querySelectorAll(".nav button").forEach(
             HZ +
             ",pow(d,1.3)*.9);gl_FragColor=vec4(c,1.);}",
     });
+
     const earM = new THREE.ShaderMaterial({
         uniforms: U,
         vertexShader:
@@ -346,6 +323,7 @@ document.querySelectorAll(".nav button").forEach(
             HZ +
             ",pow(d,1.3)*.9);gl_FragColor=vec4(c,1.);}",
     });
+
     const g = new THREE.PlaneGeometry(0.045, 1, 1, 5);
     g.translate(0, 0.5, 0);
     const gp = g.attributes.position;
@@ -354,10 +332,12 @@ document.querySelectorAll(".nav button").forEach(
         gp.setX(i, gp.getX(i) * (1 - 0.6 * y));
         gp.setZ(i, y * y * 0.12);
     }
-    const N = innerWidth < 700 ? 8000 : 16000,
+
+    const N = innerWidth < 700 ? 7000 : 14000,
         st = new THREE.InstancedMesh(g, stalkM, N),
         ea = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 6, 5), earM, N),
         o = new THREE.Object3D();
+
     for (let i = 0; i < N; i++) {
         const x = (Math.random() - 0.5) * 38,
             z = 4 - Math.pow(Math.random(), 1.6) * 31,
@@ -368,6 +348,7 @@ document.querySelectorAll(".nav button").forEach(
         o.scale.set(1, H, 1);
         o.updateMatrix();
         st.setMatrixAt(i, o.matrix);
+
         o.position.set(x, H, z);
         o.rotation.set(0, ry, (Math.random() - 0.5) * 0.5);
         o.scale.set(0.028, 0.11, 0.028);
@@ -375,6 +356,7 @@ document.querySelectorAll(".nav button").forEach(
         ea.setMatrixAt(i, o.matrix);
     }
     S.add(st, ea);
+
     const gm = new THREE.ShaderMaterial({
         vertexShader:
             "varying float d;void main(){vec4 v=viewMatrix*modelMatrix*vec4(position,1.);d=clamp(-v.z/30.,0.,1.);gl_Position=projectionMatrix*v;}",
@@ -385,62 +367,13 @@ document.querySelectorAll(".nav button").forEach(
     gr.rotation.x = -Math.PI / 2;
     gr.position.set(0, -0.01, -30);
     S.add(gr);
-    const tex = (stops) => {
-        const k = document.createElement("canvas");
-        k.width = k.height = 128;
-        const x = k.getContext("2d"),
-            r = x.createRadialGradient(64, 64, 0, 64, 64, 64);
-        stops.forEach((s) => r.addColorStop(s[0], s[1]));
-        x.fillStyle = r;
-        x.fillRect(0, 0, 128, 128);
-        return new THREE.CanvasTexture(k);
-    };
-    const sun = new THREE.Sprite(
-        new THREE.SpriteMaterial({
-            map: tex([
-                [0, "rgba(255,244,200,1)"],
-                [0.12, "rgba(255,226,150,.95)"],
-                [0.4, "rgba(255,196,110,.35)"],
-                [1, "rgba(255,190,100,0)"],
-            ]),
-            depthWrite: false,
-            fog: false,
-            transparent: true,
-        }),
-    );
-    sun.position.set(6, 5, -31);
-    sun.scale.set(20, 20, 1);
-    S.add(sun);
-    const PN = 180,
-        pg = new THREE.BufferGeometry(),
-        pa = new Float32Array(PN * 3);
-    for (let i = 0; i < PN; i++) {
-        pa[i * 3] = (Math.random() - 0.5) * 16;
-        pa[i * 3 + 1] = Math.random() * 3.5;
-        pa[i * 3 + 2] = 3 - Math.random() * 14;
-    }
-    pg.setAttribute("position", new THREE.BufferAttribute(pa, 3));
-    S.add(
-        new THREE.Points(
-            pg,
-            new THREE.PointsMaterial({
-                map: tex([
-                    [0, "rgba(255,248,215,1)"],
-                    [1, "rgba(255,248,215,0)"],
-                ]),
-                size: 0.2,
-                transparent: true,
-                opacity: 0.75,
-                depthWrite: false,
-            }),
-        ),
-    );
+
     const mouse = { x: 0, y: 0 };
     let raf = 0,
         vis = true;
     const size = () => {
-        const w = hero.clientWidth,
-            h = hero.clientHeight;
+        const w = hero.clientWidth || 800,
+            h = hero.clientHeight || 300;
         R.setSize(w, h, false);
         C.aspect = w / h;
         C.updateProjectionMatrix();
@@ -455,19 +388,13 @@ document.querySelectorAll(".nav button").forEach(
         mouse.x = ((e.clientX - r.left) / r.width) * 2 - 1;
         mouse.y = -(((e.clientY - r.top) / r.height) * 2 - 1);
     });
+
     function frame(ms) {
         const t = ms / 1000;
         U.t.value = t;
         U.m.value.set(mouse.x, mouse.y);
         C.position.set(mouse.x * 0.6, 1.05 + mouse.y * 0.2, 5);
         C.lookAt(mouse.x * 0.4, 0.55, -8);
-        const a = pg.attributes.position;
-        for (let i = 0; i < PN; i++) {
-            a.array[i * 3 + 1] += 0.004;
-            a.array[i * 3] += Math.sin(t + i) * 0.003;
-            if (a.array[i * 3 + 1] > 3.5) a.array[i * 3 + 1] = 0;
-        }
-        a.needsUpdate = true;
         R.render(S, C);
         if (FX && vis) raf = requestAnimationFrame(frame);
     }
